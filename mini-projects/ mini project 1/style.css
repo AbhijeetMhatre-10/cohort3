@@ -1,0 +1,373 @@
+@font-face {
+  font-family: main;
+  src: url(fonts/CaviarDreams.ttf);
+}
+
+@font-face {
+  font-family: mainbold;
+  src: url(fonts/CaviarDreams_Bold.ttf);
+}
+
+@font-face {
+  font-family: title;
+  src: url(fonts/Vogue.ttf);
+}
+
+:root {
+  --primary-color: rgb(34, 34, 34);
+  --secondary-color: rgb(96, 102, 80);
+  --background-color: rgb(245, 245, 240);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+}
+
+main {
+  width: 85%;
+  height: 100%;
+  margin: 0 auto;
+  color: rgb(34, 34, 34);
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 0px;
+  align-items: center;
+}
+
+.nav-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
+}
+
+.nav-link {
+  padding: 10px 20px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.nav-link:nth-child(2) {
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.nav-icon {
+  padding: 14px;
+  font-size: 26px;
+}
+
+.hero-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.info-section {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.info-section-div-1 {
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary-color);
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.info-section-div-1 i {
+  font-size: 30px;
+}
+
+.info-section-div-2 {
+  font-family: "Playfair Display", serif;
+  font-size: 50px;
+  letter-spacing: 2px;
+  line-height: 90px;
+  color: var(--primary-color);
+  padding: 10px 0;
+}
+
+.info-section-line {
+  width: 60px;
+  height: 2.5px;
+  background-color: var(--secondary-color);
+  margin: 20px 0px;
+}
+
+.info-section-div-3 {
+  width: 300px;
+  line-height: 22px;
+  font-family: "Manrope", sans-serif;
+  color: var(--secondary-color);
+  word-spacing: 1px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  padding: 10px 0;
+}
+
+.info-section-div-4 {
+  color: var(--primary-color);
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 10px 0;
+}
+
+.info-section-div-4 div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.info-section-div-5 {
+  display: flex;
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 20px 0px 10px 0px;
+  align-items: center;
+  gap: 30px;
+}
+
+.info-section-div-5 .line {
+  width: 20px;
+  height: 1.5px;
+  background-color: var(--secondary-color);
+}
+
+.info-section-div-6 {
+  width: 310px;
+  line-height: 22px;
+  font-family: "Manrope", sans-serif;
+  color: var(--secondary-color);
+  word-spacing: 1px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.product-section {
+  width: 60%;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  position: relative;
+}
+
+.product-section-div-1{
+  display: flex;
+  align-items: center;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 24px;
+  gap: 10px;
+  white-space: nowrap;
+  width: 300px;
+  height: 40px;
+  position: absolute;
+  left: -18%;
+  bottom: 30%;
+  transform: rotate(-90deg);
+  
+}
+
+.product-section-div-1 .line{
+  width: 50px;
+  height: 2px;
+  background-color: black;
+}
+
+.product-section-div-2{
+  width: 500px;
+  height: 500px;
+  background-image: url(/assets/1.png);
+  background-size: cover;
+  border-radius: 16px;
+  margin-left: 7%;
+  position: relative;
+  box-shadow: 0px 20px 50px rgba(0,0,0,0.25);
+}
+
+.price-ratings{
+  padding: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price{
+  background-color: rgb(228, 227, 225);
+  padding: 10px 16px;
+  border-radius: 15px;
+  color: var(--primary-color);
+  font-weight: 500;
+  font-family: "Manrope", sans-serif;
+  letter-spacing: 0.6px;
+}
+
+.ratings{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary-color);
+  padding: 10px 16px;
+  background-color: rgb(228, 227, 225);
+  font-weight: 500;
+  font-family: "Manrope", sans-serif;
+  letter-spacing: 0.3px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.add-to-bag{
+  background-color: rgb(124, 129, 108);
+  height: 120px;
+  color: #f1f1f1;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  border-radius: 50%;
+  position: absolute;
+  right: -3%;
+  bottom: 5%;
+}
+
+.add-to-bag i{
+  font-size: 22px;
+}
+
+.product-section-div-3{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.img-div{
+  background-color: transparent;
+  height: 100px;
+  width: 80px;
+  border-radius: 12px;
+  padding: 1px;
+  overflow: hidden;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+}
+
+.img-div img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  padding: 1px;
+  border-radius: 12px;
+}
+  
+
+.img-div:nth-child(1){
+  border: 2px solid var(--secondary-color);
+}
+
+footer{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.left-footer{
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+
+.left-footer div{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  border-right: 2px solid rgb(230, 228, 220);
+  line-height: 22px;
+}
+
+.left-footer div i{
+  font-size: 26px;
+  background-color: rgb(230, 228, 220);
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--secondary-color);
+}
+
+.left-footer div:nth-child(3){
+  border: none;
+}
+
+.right-footer{
+  width: 60%;
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  margin: 0 30px 0 80px;
+  border-radius: 20px;
+  box-shadow: 0px 20px 50px rgba(0,0,0,0.25);
+}
+
+.right-footer div{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  border-right: 2px solid rgb(230, 228, 220);
+}
+
+.right-footer div i{
+  font-size: 30px;
+  background-color: rgb(230, 228, 220);
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--secondary-color);
+}
+
+.right-footer div:nth-child(3){
+  border: none;
+}
