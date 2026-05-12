@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+}
+
+.main-wrapper {
+    width: 100%;
+    height: 100vh;
+    background: url('assets/bg.png');
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.navbar {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 90px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.3;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.8;
+    padding: 6px 0;
+}
+
+.nav-links a.active {
+    opacity: 1;
+    border-bottom: 1px solid #E01D5F;
+}
+
+.menu-icon {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.hero-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.hero-content {
+    width: 500px;
+    height: 100%;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-image {
+    width: 340px;
+    height: 200px;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+.title-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.7;
+}
+
+.description {
+    color: rgb(255, 255, 255, 0.7);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-play {
+    background: linear-gradient(to left, #B9571E, #E01D5F);
+}
+
+.icon-circle {
+    background: white;
+    color: #B9571E;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.btn-trailer {
+    background: rgb(255, 255, 255, 0.05);
+    border: 1px solid rgb(255, 255, 255, 0.2);
+}
+
+.bg-text-game {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    font-size: 250px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.bg-text-squid {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    font-size: 180px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.person-wrapper {
+    position: absolute;
+    right: -50px;
+    bottom: -50px;
+    width: 60%;
+    height: 110%;
+    z-index: 5;
+}
+
+.person-img {
+    width: 100%;
+    height: 100%;
+    scale: 1.3;
+    object-fit: contain;
+    object-position: center;
+}
+
+.scroll-indicator {
+    position: absolute;
+    left: 550px;
+    top: 20%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+    writing-mode: vertical-rl;
+    transform: translate(180deg);
+}
+
+.scroll-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    transform: rotate(180deg);
+}
+
+.scroll-line {
+    width: 1.2px;
+    height: 60px;
+    background: linear-gradient(to bottom, #E01D5F, #B9571E);
+}
+
+.social-icons {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 25;
+}
+
+.social-icons a {
+    color: #E01D5F;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.bottom-cards-section {
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.cards-wrapper {
+    background: linear-gradient(to top right, #E01D5F, rgb(40, 17, 80));
+    border-radius: 25px;
+    padding: 25px;
+    display: flex;
+    gap: 25px;
+    z-index: 50;
+}
+
+.card {
+    flex: 1;
+    height: 170px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.play-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgb(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
