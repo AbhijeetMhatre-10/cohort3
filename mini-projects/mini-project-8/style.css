@@ -1,0 +1,532 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #111;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 25% 23% 27%;
+  grid-template-rows: 15% 20% 30% 16% 19%;
+  grid-template-areas:
+    "left-top center-top center-right right-top"
+    "left-top center-top center-right right"
+    "left-bottom center center-right right"
+    "left-bottom center-bottom right-bottom right-bottom"
+    "left-bottom bottom right-bottom right-bottom";
+  color: gray;
+}
+
+.left-top {
+  grid-area: left-top;
+  height: 100%;
+  width: 100%;
+  padding: 20px 25px 20px 30px;
+}
+
+.left-top div {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(167, 100, 246);
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.left-top div img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.center-top {
+  grid-area: center-top;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+.center-top div {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
+  background-color: rgb(22, 23, 25);
+  border-radius: 30px;
+}
+
+.center-top div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.4;
+  transform: translateY(8px);
+}
+
+.center-right {
+  grid-area: center-right;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+.cr {
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
+  background-color: rgb(22, 23, 25);
+  padding: 20px;
+}
+
+.cr > div{
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+.cr > div h3{
+  font-weight: 400;
+}
+
+.cr > div .img{
+  width: 2rem;
+  aspect-ratio: 1/1;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.cr > div .img i{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.5;
+  transform: translateY(6px);
+}
+
+.line{
+  width: 100%;
+}
+
+.line div{
+  width: 100%;
+  height: 0.5px;
+  background-color: rgb(55, 55, 55);
+}
+
+.right-top {
+  grid-area: right-top;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+.rt{
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgb(155, 92, 237), rgb(111, 62, 197));
+  padding: 25px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rt-1{
+  width: 100%;
+  height: 100%;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  padding: 0 10px;
+  font-family: "Inter", sans-serif;
+  color: #fff;
+
+}
+
+.rt-1 .img{
+  width: 2rem;
+  aspect-ratio: 1/1;
+  color: #fff;
+  scale: 3;
+  transform: translateY(9.5px);
+}
+
+.rt .img i{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rt-line{
+  width: 2px;
+  height: 100%;
+  background-color: rgb(202, 200, 200);
+}
+
+.rt-2{
+  width: 100%;
+  height: 100%;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  font-family: "Inter", sans-serif;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.rt-2 .img{
+  width: 2rem;
+  aspect-ratio: 1/1;
+  color: #fff;
+  scale:2.5;
+  transform: translateY(8.5px);
+}
+
+.rt-2 .img i{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.left-bottom {
+  grid-area: left-bottom;
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px 10px 30px;
+}
+
+.lb {
+  border: 2px solid rgb(219, 240, 111);
+  height: 100%;
+  width: 100%;
+  padding: 20px 30px;
+  border-radius: 30px;
+}
+
+.lb-1 {
+  border-bottom: 2px solid gray;
+  padding-bottom: 40px;
+}
+
+.lb-1 h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 4.2rem;
+  font-weight: 500;
+  letter-spacing: -5px;
+  padding: 10px 0;
+  color: #fff;
+}
+
+.lb-1 p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 2.5px;
+  padding-top: 10px;
+  color: rgb(167, 100, 246);
+  font-weight: 500;
+}
+
+.lb-2 {
+  padding: 50px 0;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  gap: 20px;
+}
+
+.bitcoin {
+  width: 60px;
+  aspect-ratio: 1/1;
+  border-radius: 15px;
+  background-color: rgb(219, 240, 111);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #111;
+  font-weight: 700;
+}
+
+.lb-2 p {
+  font-size: 1.3rem;
+  color: rgb(129, 151, 179);
+}
+
+.lb-3 {
+  width: 100%;
+  height: 80px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.lb-3 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.5;
+}
+
+.center {
+  grid-area: center;
+  height: 100%;
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.c {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background-color: rgb(22, 23, 25);
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.c-1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.c-1 div {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(219, 240, 111);
+  color: #111;
+  font-size: 1.1rem;
+}
+
+.c-1 p {
+  font-size: 0.8rem;
+  color: grey;
+  font-family: "Inter", sans-serif;
+}
+
+.c-2 {
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  padding-top: 2.5rem;
+}
+
+.c-3 {
+  color: grey;
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  padding-top: 1.7rem;
+  text-transform: uppercase;
+}
+
+.right {
+  grid-area: right;
+  height: 100%;
+  width: 100%;
+  padding: 15px 20px;
+}
+
+.right div {
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.right div img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.center-bottom {
+  grid-area: center-bottom;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+.center-bottom div {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgb(22, 23, 25);
+  border-radius: 30px;
+}
+
+.center-bottom div img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.bottom {
+  grid-area: bottom;
+  height: 100%;
+  width: 100%;
+  padding: 5px 10px 10px 10px;
+}
+
+.b {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background-color: rgb(219, 240, 111);
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  gap: 6px;
+}
+
+.b-1 {
+  width: 7rem;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.b-1 img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.b-2 div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  color: #111;
+  font-size: 0.7rem;
+  font-family: "Inter", sans-serif;
+  padding-bottom: 10px;
+}
+
+.b-2 div i {
+  position: absolute;
+  top: -10px;
+  right: -15px;
+  font-size: 1.1rem;
+}
+
+.b-2 p {
+  color: #111;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+}
+
+.right-bottom {
+  height: 100%;
+  width: 100%;
+  grid-area: right-bottom;
+}
+
+.right-bottom {
+  grid-area: right-bottom;
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px 20px 10px;
+}
+
+.rb {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.rb-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rb-left h1 {
+  font-family: "Inter", sans-serif;
+  color: #111;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+.rb-left p {
+  font-family: "Inter", sans-serif;
+  color: gray;
+  font-size: 1.2rem;
+  padding-bottom: 10px;
+}
+
+.rb-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.rb-right h2 {
+  font-size: 6rem;
+  font-family: "Inter", sans-serif;
+  color: #111;
+  font-weight: 500;
+  line-height: 0.8;
+}
+
+.stars {
+  display: flex;
+  gap: 8px;
+  margin-top: -10px;
+}
+
+.stars i {
+  font-size: 1.5rem;
+  color: rgb(219, 240, 111);
+}
+
+.rb-right button {
+  border: none;
+  outline: none;
+  padding: 16px 28px;
+  border-radius: 15px;
+  background: linear-gradient(to right, rgb(155, 92, 237), rgb(111, 62, 197));
+  color: #fff;
+  font-family: "Butisic", sans-serif;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rb-right button i {
+  font-size: 0.9rem;
+}
