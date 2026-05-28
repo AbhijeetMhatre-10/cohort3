@@ -10,4 +10,19 @@
 
 ## 🚀 Live Demo
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-black?style=for-the-badge&logo=vercel)](https://mini-project-11.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-black?style=for-the-badge&logo=vercel)](https://two-helvatica-and-a-bud.vercel.app/)
+
+## About Project
+
+Built a responsive website clone using modern frontend tools and animations ✨
+
+### Tech Stack
+- GSAP → animated and interactive navbar
+- CSS Animations → smooth UI transitions and effects
+- Flickity v2 → responsive carousel/slider implementation
+- Alpine.js → footer dropdown functionality
+
+### Features
+- Fully responsive design for mobile, tablet, and desktop
+- Smooth animations and interactive user experience
+- Clean and modern UI recreation of the original website
