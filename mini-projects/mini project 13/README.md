@@ -1,3 +1,18 @@
+# mini-project-13
+
+## DOM Editor
+
+### Task Manager
+
+<div align="center">
+  <img src="https://res.cloudinary.com/dsxvmhffb/image/upload/v1781805240/Screenshot_2026-06-18_at_11.22.09_PM_zgxske.png" width="500"/>
+</div>
+
+## 🚀 Live Demo
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-black?style=for-the-badge&logo=vercel)](https://task-manager-one-alpha-76.vercel.app/)
+
+
 ## 1. diff in
 ```
 input.value
