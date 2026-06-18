@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager By Abhijeet Mhatre</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <h1>Task Manager</h1>
+    <div>
+        <button id="themeToggle">
+            🌙 Dark Mode
+        </button>
+        <button id="addTask">
+            Add Task
+        </button>
+    </div>
+  </nav>
+
+  <section class="search-filter">
+    <div class="search">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="🔍 Search tasks..."
+      />
+    </div>
+
+    <div class="filter">
+      <select id="categoryFilter">
+        <option value="All">All Categories</option>
+      </select>
+
+      <p class="filter-btn" id="allBtn">
+        All Tasks
+      </p>
+      <p class="filter-btn" id="completedBtn">
+        Completed Tasks
+      </p>
+      <p class="filter-btn" id="pendingBtn">
+        Pending Tasks
+      </p>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat-card">
+      <h3>Total Tasks</h3>
+      <p id="totalCount">0</p>
+    </div>
+    <div class="stat-card">
+      <h3>Completed</h3>
+      <p id="completedCount">0</p>
+    </div>
+    <div class="stat-card">
+      <h3>Pending</h3>
+      <p id="pendingCount">0</p>
+    </div>
+  </section>
+
+  <main id="allTasks">
+    <!-- task by js -->
+  </main>
+
+  <div class="form" id="form">
+    <div class="form-card">
+      <h2 id="formHeading">
+        Create New Task
+      </h2>
+      <input
+        type="text"
+        id="taskTitle"
+        placeholder="Enter Task Name"
+      />
+      <select id="taskCategory">
+        <option value="" selected disabled>
+          Select Category
+        </option>
+        <option value="Study">
+          Study
+        </option>
+        <option value="Project">
+          Project
+        </option>
+        <option value="Job Preparation">
+          Job Preparation
+        </option>
+        <option value="Health">
+          Health
+        </option>
+        <option value="Personal">
+          Personal
+        </option>
+        <option value="Finance">
+          Finance
+        </option>
+        <option value="Other">
+          Other
+        </option>
+      </select>
+
+      <div class="actions">
+        <button
+          class="cancel"
+          id="cancelForm"
+        >
+          Cancel
+        </button>
+        <button
+          class="save"
+          id="saveForm"
+        >
+          Save Task
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
