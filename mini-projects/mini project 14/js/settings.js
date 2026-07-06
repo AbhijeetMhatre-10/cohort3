@@ -52,7 +52,7 @@ function initSettings() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (window.location.pathname.includes('index.html')) {
+  if (getCurrentPageName() === 'index.html') {
     initSettings();
   }
 });

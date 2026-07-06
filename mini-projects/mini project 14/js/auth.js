@@ -1,12 +1,17 @@
 // Authentication flow for login and registration pages.
 document.addEventListener('DOMContentLoaded', () => {
   const currentUser = getCurrentUser();
-  if (window.location.pathname.includes('login.html') && currentUser) {
+  const users = getUsers();
+  const validCurrentUser = currentUser && users.some((user) => user.id === currentUser.id);
+  const currentPage = getCurrentPageName();
+
+  if ((currentPage === 'login.html' || currentPage === 'register.html') && validCurrentUser) {
     window.location.href = 'index.html';
     return;
   }
 
-  if (window.location.pathname.includes('index.html') && !currentUser) {
+  if (currentPage === 'index.html' && !validCurrentUser) {
+    clearCurrentUser();
     window.location.href = 'login.html';
     return;
   }

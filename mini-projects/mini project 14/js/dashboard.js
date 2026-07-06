@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  if (!window.location.pathname.includes('index.html')) return;
+  if (getCurrentPageName() !== 'index.html') return;
   ensureAuth();
   initUI();
   initTransactions();

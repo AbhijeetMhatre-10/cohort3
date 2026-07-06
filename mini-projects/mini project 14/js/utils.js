@@ -30,11 +30,26 @@ function getUserByIdentifier(identifier) {
   return users.find((user) => user.username === identifier || user.email === identifier) || null;
 }
 
+function getCurrentPageName() {
+  const path = window.location.pathname;
+  const pageName = path.substring(path.lastIndexOf('/') + 1);
+  return pageName || 'index.html';
+}
+
+function isCurrentPage(pageName) {
+  return getCurrentPageName() === pageName;
+}
+
 function ensureAuth() {
   const user = getCurrentUser();
-  if (!user) {
+  const users = getUsers();
+  const validUser = user && users.some((savedUser) => savedUser.id === user.id);
+
+  if (!validUser) {
+    clearCurrentUser();
     window.location.href = 'login.html';
     return false;
   }
+
   return true;
 }
