@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTrack Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">FP</div>
+        <div>
+          <h1>FinTrack Pro</h1>
+          <p>Smart finance</p>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <button class="nav-item active" data-target="dashboard-view">
+          <span>◉</span>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-target="settings-view">
+          <span>⚙</span>
+          <span>Settings</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <p>Stay ahead of every expense.</p>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+        <div class="topbar-brand">
+          <img src="assets/icons/logo.svg" alt="FinTrack Pro" />
+          <h2>FinTrack Pro</h2>
+        </div>
+        <div class="topbar-actions">
+          <div class="user-pill">
+            <span id="headerUsername">User</span>
+          </div>
+          <button class="btn btn-outline" id="logoutBtn">Logout</button>
+        </div>
+      </header>
+
+      <section class="view-section active" id="dashboard-view">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Overview</p>
+            <h3>Welcome back</h3>
+          </div>
+          <button class="btn btn-primary" id="openTransactionModalBtn">+ Add Transaction</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card balance-card">
+            <p>Current Balance</p>
+            <h4 id="balanceValue">₹0.00</h4>
+            <span>Net available balance</span>
+          </article>
+          <article class="stat-card income-card">
+            <p>Total Income</p>
+            <h4 id="incomeValue">₹0.00</h4>
+            <span>All incoming funds</span>
+          </article>
+          <article class="stat-card expense-card">
+            <p>Total Expense</p>
+            <h4 id="expenseValue">₹0.00</h4>
+            <span>All outgoing spend</span>
+          </article>
+          <article class="stat-card transactions-card">
+            <p>Total Transactions</p>
+            <h4 id="transactionsCount">0</h4>
+            <span>Tracked entries</span>
+          </article>
+        </div>
+
+        <div class="panel-grid">
+          <section class="panel chart-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Cash Flow</p>
+                <h3>Income vs Expense</h3>
+              </div>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="flowChart"></canvas>
+            </div>
+          </section>
+
+          <section class="panel transactions-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Activity</p>
+                <h3>All Transactions</h3>
+              </div>
+            </div>
+            <div class="transaction-toolbar">
+              <input type="search" id="searchInput" placeholder="Search transactions" />
+              <select id="typeFilter">
+                <option value="all">All Types</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+              <select id="categoryFilter">
+                <option value="all">All Categories</option>
+              </select>
+              <select id="sortOrder">
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+              </select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="transactionsTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view-section" id="settings-view">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Preferences</p>
+            <h3>Settings</h3>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <section class="panel settings-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Currency</p>
+                <h3>Display Currency</h3>
+              </div>
+            </div>
+            <label class="field-label" for="currencySelect">Choose your currency</label>
+            <select id="currencySelect" class="full-width">
+              <option value="INR">INR ₹</option>
+              <option value="USD">USD $</option>
+              <option value="EUR">EUR €</option>
+              <option value="GBP">GBP £</option>
+            </select>
+          </section>
+
+          <section class="panel settings-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Appearance</p>
+                <h3>Theme Preferences</h3>
+              </div>
+            </div>
+            <label class="switch-row" for="darkModeToggle">
+              <span>Dark mode</span>
+              <input type="checkbox" id="darkModeToggle" />
+              <span class="switch"></span>
+            </label>
+          </section>
+
+          <section class="panel settings-panel danger-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Reset</p>
+                <h3>Reset Data</h3>
+              </div>
+            </div>
+            <p>This clears all transactions and resets balance values for your account.</p>
+            <button class="btn btn-danger" id="resetDataBtn">Reset Data</button>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="transactionModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add Transaction</h3>
+        <button class="close-btn" id="closeTransactionModalBtn" aria-label="Close">×</button>
+      </div>
+      <form id="transactionForm" class="modal-form">
+        <input type="hidden" id="transactionId" />
+        <div class="form-grid">
+          <label>
+            <span>Title</span>
+            <input type="text" id="transactionTitle" required />
+          </label>
+          <label>
+            <span>Amount</span>
+            <input type="number" id="transactionAmount" min="0.01" step="0.01" required />
+          </label>
+          <label>
+            <span>Type</span>
+            <select id="transactionType" required>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </label>
+          <label>
+            <span>Category</span>
+            <input type="text" id="transactionCategory" required />
+          </label>
+          <label>
+            <span>Date</span>
+            <input type="date" id="transactionDate" required />
+          </label>
+          <label>
+            <span>Notes</span>
+            <input type="text" id="transactionNotes" />
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelTransactionBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="js/transactions.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

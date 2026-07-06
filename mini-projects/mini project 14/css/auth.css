@@ -1,0 +1,6 @@
+body.auth-page {
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.2), transparent 35%), linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+}
+body.dark.auth-page {
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.2), transparent 35%), linear-gradient(135deg, #020617 0%, #0f172a 100%);
+}

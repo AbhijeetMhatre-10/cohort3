@@ -1,0 +1,19 @@
+.floating-action {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  font-size: 1.6rem;
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
+  z-index: 900;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+  padding: 18px 0;
+}
