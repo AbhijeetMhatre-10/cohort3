@@ -14,7 +14,7 @@
 
 ## 🚀 Live Demo
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-black?style=for-the-badge&logo=vercel)]()
+[![Live Demo](https://img.shields.io/badge/Live-Demo-black?style=for-the-badge&logo=vercel)](https://fintrack-pro-bay.vercel.app/login.html)
 
 ## About Project
 
