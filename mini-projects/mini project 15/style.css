@@ -1,0 +1,579 @@
+:root {
+  --bg: #5c3d2e;
+  --panel: #b85c38;
+  --text: #e0c097;
+  --card: #ffffff;
+  --card-text: #223041;
+  --muted: #64708a;
+  --accent: #6b7cff;
+  --accent-2: #4f64ff;
+  --danger: #ff5d5d;
+  --success: #35c47f;
+}
+
+body.theme-dark {
+  --bg: #14213d;
+  --panel: #22395a;
+  --text: #f1f3ff;
+  --card: #1f2f44;
+  --card-text: #f7f9ff;
+  --muted: #9ba8c3;
+  --accent: #8da2ff;
+  --accent-2: #6f7cff;
+  --danger: #ff7a7a;
+  --success: #55d492;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  position: relative;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.main {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg);
+  padding: 1rem 1.4rem;
+  color: var(--text);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.3rem;
+  background-color: var(--panel);
+  border-radius: 0.8rem;
+}
+
+.navbar h1 {
+  font-size: 1.6rem;
+}
+
+.navbar button,
+.input-box button,
+.quote-card button,
+.pomodoro-controls button,
+.goals-card button {
+  font-size: 0.95rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: 0.7rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.timer-setting-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.45rem;
+}
+
+.timer-setting-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid #dfe4f0;
+  border-radius: 0.8rem;
+  outline: none;
+  font-size: 1rem;
+  background: #fff;
+  color: #1f2937;
+}
+
+.timer-setting-row input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(107, 124, 255, 0.16);
+}
+
+.timer-setting-row button {
+  padding: 0.85rem 1.1rem;
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 12px 24px rgba(107, 124, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timer-setting-row button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(107, 124, 255, 0.28);
+}
+
+.goal-edit-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #dfe4f0;
+  border-radius: 0.75rem;
+  outline: none;
+  font-size: 1rem;
+  background: #fff;
+  color: #1f2937;
+}
+
+.goal-edit-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(107, 124, 255, 0.16);
+}
+
+.goal-list li.editing {
+  border-color: var(--accent);
+  box-shadow: 0 10px 22px rgba(107, 124, 255, 0.12);
+}
+
+.actions button.save {
+  color: var(--success);
+}
+
+.actions button.cancel {
+  color: var(--muted);
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  margin: 1rem 0;
+  border-radius: 0.8rem;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.22);
+}
+
+.center.morning {
+  background-image: linear-gradient(135deg, rgba(255, 218, 121, 0.6), rgba(59, 130, 246, 0.45)), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80");
+}
+
+.center.afternoon {
+  background-image: linear-gradient(135deg, rgba(120, 119, 198, 0.4), rgba(255, 159, 67, 0.5)), url("https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=900&q=80");
+}
+
+.center.evening {
+  background-image: linear-gradient(135deg, rgba(244, 114, 182, 0.4), rgba(59, 130, 246, 0.45)), url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80");
+}
+
+.center.night {
+  background-image: linear-gradient(135deg, rgba(17, 24, 39, 0.7), rgba(30, 41, 59, 0.7)), url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80");
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.left h1 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.left h2 {
+  font-size: 2.85rem;
+  font-weight: 800;
+}
+
+.left p {
+  font-size: 1.6rem;
+}
+
+.right h1 {
+  font-size: 2.85rem;
+  font-weight: 800;
+}
+
+.right h2 {
+  font-weight: 400;
+  font-size: 2rem;
+}
+
+.right p {
+  font-size: 1rem;
+}
+
+.productivity {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.3rem;
+  color: #fff;
+}
+
+.productivity > div {
+  height: 300px;
+  border-radius: 0.6rem;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  padding: 1rem;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.productivity > div:hover {
+  transform: translateY(-3px);
+}
+
+.productivity > div p {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.todo {
+  background-image: url("https://i.pinimg.com/736x/35/52/71/355271455f1e8efe92df97c59e319466.jpg");
+}
+
+.planner {
+  background-image: url("https://i.pinimg.com/736x/39/38/37/39383781ea8892dbd2420b9010bb71ff.jpg");
+}
+
+.motivation {
+  background-image: url("https://i.pinimg.com/736x/88/61/08/88610828b6ed19d91c00b4957d782cd3.jpg");
+}
+
+.pomodoro {
+  background-image: url("https://i.pinimg.com/736x/55/e0/41/55e041dada267a12c1a57a5ad507810a.jpg");
+}
+
+.goals {
+  background-image: url("https://i.pinimg.com/736x/14/e4/67/14e467536c42f912af93b90d48a0a6e4.jpg");
+}
+
+.feature-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 24, 40, 0.72);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+}
+
+.feature-overlay.active {
+  display: flex;
+}
+
+.feature-panel {
+  width: min(100%, 620px);
+  max-height: 85vh;
+  overflow: auto;
+  padding: 1.4rem;
+  border-radius: 1.25rem;
+  background: var(--card);
+  color: var(--card-text);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.feature-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.feature-kicker {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.feature-header h2 {
+  font-size: 1.35rem;
+}
+
+.close {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.feature-section {
+  display: none;
+}
+
+.feature-section.active {
+  display: block;
+}
+
+.todo-panel,
+.planner-box,
+.quote-card,
+.pomodoro-card,
+.goals-card,
+.weather-card {
+  padding: 0.2rem;
+}
+
+.input-box {
+  display: flex;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.input-box input,
+.planner-input,
+.goal-input {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  border: 1px solid #dfe4f0;
+  border-radius: 0.8rem;
+  outline: none;
+  font-size: 1rem;
+  background: #fff;
+  color: #1f2937;
+}
+
+.input-box input:focus,
+.planner-input:focus,
+.goal-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(107, 124, 255, 0.16);
+}
+
+.todo-meta,
+.goal-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.task-list,
+.goal-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+}
+
+.task-list li,
+.goal-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid #e3e8f3;
+  border-radius: 0.85rem;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(24, 37, 61, 0.05);
+}
+
+.task-main {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: 1;
+}
+
+.task-check {
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  border: 2px solid #c2cbe5;
+  background: #fff;
+  color: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.task-check.checked {
+  border-color: var(--success);
+  background: var(--success);
+  color: #fff;
+}
+
+.task-text,
+.goal-text {
+  color: #263449;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.actions button,
+.goal-list button {
+  border: none;
+  border-radius: 999px;
+  background: #f2f4fb;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+}
+
+.important.active {
+  background: #fff2ba;
+  color: #ffb703;
+}
+
+.delete {
+  color: var(--danger);
+}
+
+.completed .task-text,
+.goal-item.completed .goal-text {
+  text-decoration: line-through;
+  color: #9aa5b8;
+}
+
+.empty-state {
+  justify-content: center;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  border-style: dashed;
+}
+
+.planner-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.7rem;
+}
+
+.planner-slot label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.quote-card,
+.pomodoro-card,
+.weather-card {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.quote-text {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--card-text);
+}
+
+.quote-author {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.timer-label {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 0.7rem;
+  font-weight: 700;
+}
+
+#timerDisplay {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.timer-settings {
+  margin: 0.8rem 0 1rem;
+}
+
+.timer-setting-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.timer-setting-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.timer-setting-row input {
+  width: 100px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #dfe4f0;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.pomodoro-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.weather-temp {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 700px) {
+  .center {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .feature-overlay {
+    padding: 1rem;
+  }
+
+  .input-box {
+    flex-direction: column;
+  }
+
+  .todo-meta,
+  .goal-progress {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+}

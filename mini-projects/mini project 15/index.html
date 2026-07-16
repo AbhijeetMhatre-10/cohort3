@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <nav class="navbar">
+        <h1>Productivity Dashboard</h1>
+        <button id="themeToggle" type="button">Change Theme</button>
+      </nav>
+
+      <div class="center">
+        <div class="left">
+          <div>
+            <h1 id="dateDisplay">1 May 2026</h1>
+            <h2 id="timeDisplay">Sunday, 12:27:47 AM</h2>
+          </div>
+          <p class="location">Ratnagiri (MH)</p>
+        </div>
+
+        <div class="right">
+          <div>
+            <h1 id="weatherTemp">20°C</h1>
+            <h2 id="weatherCondition">Light Rain</h2>
+          </div>
+          <div>
+            <p id="weatherPrecip">Precipitation: 35%</p>
+            <p id="weatherHumidity">Humidity: 49%</p>
+            <p id="weatherWind">Wind: 10km/h</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="productivity">
+        <div class="todo" onclick="openFeature('todo')">
+          <p>To do List</p>
+        </div>
+        <div class="planner" onclick="openFeature('planner')">
+          <p>Daily Planner</p>
+        </div>
+        <div class="motivation" onclick="openFeature('motivation')">
+          <p>Motivation</p>
+        </div>
+        <div class="pomodoro" onclick="openFeature('pomodoro')">
+          <p>Pomodoro Timer</p>
+        </div>
+        <div class="goals" onclick="openFeature('goals')">
+          <p>Daily Goals</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-overlay" id="featureOverlay">
+      <div class="feature-panel">
+        <div class="feature-header">
+          <div>
+            <p class="feature-kicker" id="featureKicker">Focus Mode</p>
+            <h2 id="featureTitle">Feature</h2>
+          </div>
+          <button onclick="closeFeature()" class="close" type="button">
+            ✕ Close
+          </button>
+        </div>
+
+        <div class="feature-body">
+          <section class="feature-section active" data-feature="todo">
+            <div class="todo-panel">
+              <div class="input-box">
+                <input
+                  id="taskInput"
+                  type="text"
+                  placeholder="Enter a task"
+                  maxlength="60"
+                />
+                <button id="addTaskBtn" type="button">Add Task</button>
+              </div>
+              <div class="todo-meta">
+                <span id="taskCount">0 tasks</span>
+                <span>Tap the icons to manage your list</span>
+              </div>
+              <ul class="task-list" id="taskList"></ul>
+            </div>
+          </section>
+
+          <section class="feature-section" data-feature="planner">
+            <div class="planner-box">
+              <div class="planner-slot">
+                <label>09:00 AM</label>
+                <input
+                  type="text"
+                  class="planner-input"
+                  data-index="0"
+                  placeholder="Plan your morning"
+                />
+              </div>
+              <div class="planner-slot">
+                <label>10:00 AM</label>
+                <input
+                  type="text"
+                  class="planner-input"
+                  data-index="1"
+                  placeholder="Plan your work"
+                />
+              </div>
+              <div class="planner-slot">
+                <label>11:00 AM</label>
+                <input
+                  type="text"
+                  class="planner-input"
+                  data-index="2"
+                  placeholder="Plan your focus time"
+                />
+              </div>
+              <div class="planner-slot">
+                <label>01:00 PM</label>
+                <input
+                  type="text"
+                  class="planner-input"
+                  data-index="3"
+                  placeholder="Plan your lunch break"
+                />
+              </div>
+              <div class="planner-slot">
+                <label>03:00 PM</label>
+                <input
+                  type="text"
+                  class="planner-input"
+                  data-index="4"
+                  placeholder="Plan your afternoon task"
+                />
+              </div>
+              <div class="planner-slot">
+                <label>06:00 PM</label>
+                <input
+                  type="text"
+                  class="planner-input"
+                  data-index="5"
+                  placeholder="Plan your evening wrap-up"
+                />
+              </div>
+            </div>
+          </section>
+
+          <section class="feature-section" data-feature="motivation">
+            <div class="quote-card">
+              <p class="quote-text" id="quoteText">
+                Small steps every day still move you forward.
+              </p>
+              <p class="quote-author" id="quoteAuthor">Keep going</p>
+              <button id="newQuoteBtn" type="button">New Quote</button>
+            </div>
+          </section>
+
+          <section class="feature-section" data-feature="pomodoro">
+            <div class="pomodoro-card">
+              <p class="timer-label" id="sessionLabel">Work Session</p>
+              <h3 id="timerDisplay">25:00</h3>
+              <div class="timer-settings">
+                <label class="timer-setting-label" for="timerMinutesInput">
+                  Session length (minutes)
+                </label>
+                <div class="timer-setting-row">
+                  <input
+                    id="timerMinutesInput"
+                    type="number"
+                    min="1"
+                    max="90"
+                    value="25"
+                  />
+                  <button id="setTimerBtn" type="button">Set Timer</button>
+                </div>
+              </div>
+              <div class="pomodoro-controls">
+                <button id="startTimerBtn" type="button">Start</button>
+                <button id="pauseTimerBtn" type="button">Pause</button>
+                <button id="resetTimerBtn" type="button">Reset</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="feature-section" data-feature="goals">
+            <div class="goals-card">
+              <div class="input-box">
+                <input
+                  id="goalInput"
+                  type="text"
+                  placeholder="Add a daily goal"
+                  maxlength="60"
+                />
+                <button id="addGoalBtn" type="button">Add Goal</button>
+              </div>
+              <p class="goal-progress" id="goalProgress">0 of 0 completed</p>
+              <ul class="goal-list" id="goalList"></ul>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
