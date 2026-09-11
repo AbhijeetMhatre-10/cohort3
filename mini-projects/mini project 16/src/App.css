@@ -1191,14 +1191,17 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   text-align: center;
-  padding-bottom: 1.5rem;
+  padding: 1.5rem;
 }
 
 .team-img {
-  width: 100%;
-  height: 200px;
+  display: block;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1rem;
   object-fit: cover;
-  margin-bottom: 1rem;
+  object-position: center top;
+  border-radius: 50%;
 }
 
 .team-card h4 {
