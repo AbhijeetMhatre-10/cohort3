@@ -13,9 +13,24 @@ export function getLocalQuestions() {
   try {
     if (typeof window === 'undefined') return [];
     const raw = localStorage.getItem(LOCAL_QUESTIONS_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
+    // Backward compatibility: migrate custom problems from legacy array storage
+    const oldRaw = localStorage.getItem(OLD_QUESTIONS_KEY);
+    if (oldRaw) {
+      const oldList = JSON.parse(oldRaw);
+      if (Array.isArray(oldList)) {
+        const initialIdSet = new Set(INITIAL_QUESTIONS.map((q) => q.id));
+        const legacyCustom = oldList.filter((q) => q && q.id && !initialIdSet.has(q.id));
+        if (legacyCustom.length > 0) {
+          saveLocalQuestions(legacyCustom);
+          return legacyCustom;
+        }
+      }
+    }
+    return [];
   } catch (err) {
     console.error('Failed to get local questions from localStorage:', err);
     return [];
@@ -105,7 +120,8 @@ export function getHiddenInitialIds() {
 export function saveHiddenInitialIds(ids) {
   try {
     if (typeof window !== 'undefined' && Array.isArray(ids)) {
-      localStorage.setItem(HIDDEN_INITIAL_KEY, JSON.stringify(ids));
+      const uniqueIds = [...new Set(ids)];
+      localStorage.setItem(HIDDEN_INITIAL_KEY, JSON.stringify(uniqueIds));
     }
   } catch (err) {
     console.error('Failed to save hidden initial IDs to localStorage:', err);
@@ -114,33 +130,31 @@ export function saveHiddenInitialIds(ids) {
 
 /**
  * Synchronize INITIAL_QUESTIONS with LOCAL_QUESTIONS and saved question statuses.
- * Combines them into a single list with unique IDs.
+ * Combines them into a single list with unique IDs, allowing local edits to override initial questions.
  */
 export function getSynchronizedQuestions() {
   const localList = getLocalQuestions();
   const savedStatuses = getSavedStatuses();
   const hiddenInitialIds = new Set(getHiddenInitialIds());
 
-  // 1. Sync INITIAL_QUESTIONS with saved statuses (excluding user-deleted initial questions)
-  const syncedInitial = INITIAL_QUESTIONS
-    .filter((q) => !hiddenInitialIds.has(q.id))
-    .map((q) => ({
-      ...q,
-      status: savedStatuses[q.id] || q.status || 'Pending',
-    }));
-
-  // 2. Sync LOCAL_QUESTIONS with saved statuses (do not overwrite or delete local questions)
+  // 1. Sync LOCAL_QUESTIONS with saved statuses (user-created or edited questions)
   const syncedLocal = localList.map((q) => ({
     ...q,
     status: savedStatuses[q.id] || q.status || 'Pending',
   }));
 
-  // 3. Combine into final question list, avoiding duplicates using unique IDs
-  const initialIds = new Set(syncedInitial.map((q) => q.id));
-  const combined = [
-    ...syncedInitial,
-    ...syncedLocal.filter((q) => !initialIds.has(q.id)),
-  ];
+  const localIds = new Set(syncedLocal.map((q) => q.id));
+
+  // 2. Sync INITIAL_QUESTIONS with saved statuses (excluding user-deleted questions and locally overridden questions)
+  const syncedInitial = INITIAL_QUESTIONS
+    .filter((q) => !hiddenInitialIds.has(q.id) && !localIds.has(q.id))
+    .map((q) => ({
+      ...q,
+      status: savedStatuses[q.id] || q.status || 'Pending',
+    }));
+
+  // 3. Combine into final question list, maintaining initial order then local questions
+  const combined = [...syncedInitial, ...syncedLocal];
 
   return {
     combined,
@@ -157,12 +171,23 @@ export function saveStoredQuestions(questions) {
   try {
     if (typeof window !== 'undefined' && Array.isArray(questions)) {
       const statuses = getSavedStatuses();
+      const initialIdSet = new Set(INITIAL_QUESTIONS.map((q) => q.id));
+      const localToSave = [];
+
       for (const q of questions) {
-        if (q && q.id && q.status) {
-          statuses[q.id] = q.status;
+        if (q && q.id) {
+          if (q.status) {
+            statuses[q.id] = q.status;
+          }
+          if (!initialIdSet.has(q.id)) {
+            localToSave.push(q);
+          }
         }
       }
       saveSavedStatuses(statuses);
+      if (localToSave.length > 0) {
+        saveLocalQuestions(localToSave);
+      }
     }
   } catch (err) {
     console.error('Failed to save questions to localStorage:', err);

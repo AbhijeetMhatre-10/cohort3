@@ -26,16 +26,18 @@ export function QuestionFilters({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         {/* Search */}
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+          <label htmlFor="search-input" className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             SEARCH
           </label>
           <div className="relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
+              id="search-input"
               type="text"
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Find a question..."
+              aria-label="Search questions by title"
               className="w-full pl-10 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             />
           </div>
@@ -43,12 +45,14 @@ export function QuestionFilters({
 
         {/* Week */}
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+          <label htmlFor="week-filter-select" className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             WEEK
           </label>
           <select
+            id="week-filter-select"
             value={week}
             onChange={(e) => onWeekChange(e.target.value)}
+            aria-label="Filter questions by week"
             className="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <option value="All">All weeks</option>
@@ -62,12 +66,14 @@ export function QuestionFilters({
 
         {/* Difficulty */}
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+          <label htmlFor="difficulty-filter-select" className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             DIFFICULTY
           </label>
           <select
+            id="difficulty-filter-select"
             value={difficulty}
             onChange={(e) => onDifficultyChange(e.target.value)}
+            aria-label="Filter questions by difficulty"
             className="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <option value="All">All difficulties</option>
@@ -79,12 +85,14 @@ export function QuestionFilters({
 
         {/* Status */}
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+          <label htmlFor="status-filter-select" className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             STATUS
           </label>
           <select
+            id="status-filter-select"
             value={status}
             onChange={(e) => onStatusChange(e.target.value)}
+            aria-label="Filter questions by status"
             className="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <option value="All">All</option>
@@ -105,6 +113,7 @@ export function QuestionFilters({
           <button
             type="button"
             onClick={onClear}
+            aria-label="Clear all active filters"
             className="inline-flex items-center gap-1.5 text-purple-600 dark:text-purple-400 hover:underline font-semibold cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded"
           >
             <RotateCcw className="w-3.5 h-3.5" /> Clear Filters

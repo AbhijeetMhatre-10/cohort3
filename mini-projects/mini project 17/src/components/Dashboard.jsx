@@ -4,21 +4,21 @@ export function Dashboard({ questions = [] }) {
   const total = questions.length;
   const completed = questions.filter((q) => q.status === 'Completed').length;
   const inProgress = questions.filter((q) => q.status === 'In Progress').length;
-  const pending = total - completed - inProgress;
-  const overallPercentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const pending = Math.max(0, total - completed - inProgress);
+  const overallPercentage = total > 0 ? Math.min(100, Math.max(0, Math.round((completed / total) * 100))) : 0;
 
   // Breakdown by difficulty
   const easyTotal = questions.filter((q) => q.difficulty === 'Easy').length;
   const easyCompleted = questions.filter((q) => q.difficulty === 'Easy' && q.status === 'Completed').length;
-  const easyPct = easyTotal > 0 ? Math.round((easyCompleted / easyTotal) * 100) : 0;
+  const easyPct = easyTotal > 0 ? Math.min(100, Math.max(0, Math.round((easyCompleted / easyTotal) * 100))) : 0;
 
   const medTotal = questions.filter((q) => q.difficulty === 'Medium').length;
   const medCompleted = questions.filter((q) => q.difficulty === 'Medium' && q.status === 'Completed').length;
-  const medPct = medTotal > 0 ? Math.round((medCompleted / medTotal) * 100) : 0;
+  const medPct = medTotal > 0 ? Math.min(100, Math.max(0, Math.round((medCompleted / medTotal) * 100))) : 0;
 
   const hardTotal = questions.filter((q) => q.difficulty === 'Hard').length;
   const hardCompleted = questions.filter((q) => q.difficulty === 'Hard' && q.status === 'Completed').length;
-  const hardPct = hardTotal > 0 ? Math.round((hardCompleted / hardTotal) * 100) : 0;
+  const hardPct = hardTotal > 0 ? Math.min(100, Math.max(0, Math.round((hardCompleted / hardTotal) * 100))) : 0;
 
   // Circular progress calculations
   const size = 88;
@@ -53,6 +53,8 @@ export function Dashboard({ questions = [] }) {
               width={size}
               height={size}
               viewBox={`0 0 ${size} ${size}`}
+              role="img"
+              aria-label={`Overall DSA completion progress: ${overallPercentage}%`}
             >
               <circle
                 cx={size / 2}

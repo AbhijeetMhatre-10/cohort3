@@ -3,15 +3,32 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/shery.jpeg" />
+  <link rel="icon" type="image/jpeg" href="/shery.jpeg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="DSA Sheet Sheryians" />
+  <meta name="description" content="DSA Sheet Sheryians - Placement preparation and minimal DSA practice tracker with week-wise tracking." />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta property="og:title" content="DSA Sheet | Sheryians" />
+  <meta property="og:description" content="Placement preparation and minimal DSA practice tracker with week-wise tracking." />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet">
   <title>DSA Sheet | Sheryians</title>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('dsa-theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body

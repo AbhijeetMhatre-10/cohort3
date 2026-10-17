@@ -110,7 +110,14 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### 3. Production Build
+### 3. Run Automated Tests & Linter
+
+```bash
+npm test
+npm run lint
+```
+
+### 4. Production Build
 
 ```bash
 npm run build

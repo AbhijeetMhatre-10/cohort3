@@ -83,15 +83,17 @@ export function QuestionForm({
       <div
         role="dialog"
         aria-modal="true"
+        aria-labelledby="form-dialog-title"
+        aria-describedby="form-dialog-desc"
         className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-7 z-10 animate-in zoom-in-95 duration-150"
       >
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
-            <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
+            <h2 id="form-dialog-title" className="text-xl font-extrabold text-slate-900 dark:text-white">
               {isEdit ? 'Edit DSA Problem' : 'Add DSA Problem'}
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p id="form-dialog-desc" className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               {isEdit
                 ? 'Update problem title, difficulty, status, or URL.'
                 : 'Add a new problem to your practice sheet.'}
@@ -100,7 +102,7 @@ export function QuestionForm({
           <button
             onClick={onClose}
             className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
-            aria-label="Close"
+            aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
           </button>
@@ -110,15 +112,17 @@ export function QuestionForm({
         <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           {/* Title */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label htmlFor="problem-title-input" className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
               Problem Title <span className="text-rose-500">*</span>
             </label>
             <input
+              id="problem-title-input"
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="e.g. Invert Binary Tree"
               autoFocus
+              aria-invalid={Boolean(errors.title)}
               className={`w-full px-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-800 border ${
                 errors.title ? 'border-rose-400' : 'border-slate-200 dark:border-slate-700'
               } rounded-xl text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500`}
@@ -133,10 +137,11 @@ export function QuestionForm({
           {/* Difficulty & Status */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="problem-diff-select" className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Difficulty
               </label>
               <select
+                id="problem-diff-select"
                 value={formData.difficulty}
                 onChange={(e) => setFormData({ ...formData, difficulty: e.target.value })}
                 className="w-full px-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
@@ -148,10 +153,11 @@ export function QuestionForm({
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="problem-status-select" className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Status
               </label>
               <select
+                id="problem-status-select"
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                 className="w-full px-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
@@ -165,14 +171,16 @@ export function QuestionForm({
 
           {/* Week */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label htmlFor="problem-week-input" className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
               Week Number <span className="text-rose-500">*</span>
             </label>
             <input
+              id="problem-week-input"
               type="number"
               min="1"
               value={formData.week}
               onChange={(e) => setFormData({ ...formData, week: e.target.value })}
+              aria-invalid={Boolean(errors.week)}
               className={`w-full px-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-800 border ${
                 errors.week ? 'border-rose-400' : 'border-slate-200 dark:border-slate-700'
               } rounded-xl text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500`}
@@ -186,14 +194,16 @@ export function QuestionForm({
 
           {/* URL */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label htmlFor="problem-url-input" className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
               LeetCode / Problem URL
             </label>
             <input
+              id="problem-url-input"
               type="url"
               value={formData.url}
               onChange={(e) => setFormData({ ...formData, url: e.target.value })}
               placeholder="https://leetcode.com/problems/..."
+              aria-invalid={Boolean(errors.url)}
               className={`w-full px-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-800 border ${
                 errors.url ? 'border-rose-400' : 'border-slate-200 dark:border-slate-700'
               } rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500`}

@@ -28,8 +28,12 @@ export function QuestionCard({
     onStatusChange(question.id, nextStatus);
   };
 
+  const isSafeUrl =
+    typeof question.url === 'string' &&
+    (question.url.startsWith('http://') || question.url.startsWith('https://'));
+
   const handleLinkClick = () => {
-    if (question.url) {
+    if (isSafeUrl) {
       onOpenLink(question);
     }
   };
@@ -51,6 +55,7 @@ export function QuestionCard({
           type="button"
           role="checkbox"
           aria-checked={isCompleted}
+          aria-label={isCompleted ? `Mark ${question.title} as Pending` : `Mark ${question.title} as Completed`}
           onClick={handleToggleCheck}
           className={`shrink-0 w-5 h-5 rounded-md border flex items-center justify-center transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
             isCompleted
@@ -69,25 +74,25 @@ export function QuestionCard({
 
         {/* Title & External Link */}
         <div className="min-w-0 flex items-center gap-2 flex-wrap">
-          {question.url ? (
+          {isSafeUrl ? (
             <a
               href={question.url}
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleLinkClick}
-              className={`text-sm sm:text-base font-semibold hover:underline flex items-center gap-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded ${
+              className={`text-sm sm:text-base font-semibold hover:underline flex items-center gap-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded break-words ${
                 isCompleted
                   ? 'text-slate-500 dark:text-slate-400 line-through'
                   : 'text-slate-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400'
               }`}
               title="Open problem in new tab (marks In Progress if Pending)"
             >
-              <span>{question.title}</span>
+              <span className="break-words">{question.title}</span>
               <ExternalLink className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             </a>
           ) : (
             <span
-              className={`text-sm sm:text-base font-semibold ${
+              className={`text-sm sm:text-base font-semibold break-words ${
                 isCompleted
                   ? 'text-slate-500 dark:text-slate-400 line-through'
                   : 'text-slate-900 dark:text-white'
@@ -114,6 +119,7 @@ export function QuestionCard({
         <select
           value={question.status}
           onChange={(e) => onStatusChange(question.id, e.target.value)}
+          aria-label={`Status for ${question.title}`}
           className={`text-xs font-medium py-1 px-2.5 rounded-lg border cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
             statusColors[question.status] || statusColors.Pending
           }`}
@@ -129,6 +135,7 @@ export function QuestionCard({
           <button
             type="button"
             onClick={() => onEdit(question)}
+            aria-label={`Edit ${question.title}`}
             className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             title="Edit question"
           >
@@ -137,6 +144,7 @@ export function QuestionCard({
           <button
             type="button"
             onClick={() => onDelete(question)}
+            aria-label={`Delete ${question.title}`}
             className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             title="Delete question"
           >

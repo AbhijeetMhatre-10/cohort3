@@ -61,24 +61,25 @@ export function App() {
 
   // Derive synchronized combined question list:
   // - INITIAL_QUESTIONS is the default dataset with saved statuses applied
-  // - LOCAL_QUESTIONS is the separate user-created dataset with saved statuses applied
-  // - Unique IDs are used to avoid any duplicates
-  const syncedInitial = INITIAL_QUESTIONS
-    .filter((q) => !hiddenInitialIds.includes(q.id))
-    .map((q) => ({
-      ...q,
-      status: savedStatuses[q.id] || q.status || 'Pending',
-    }));
-
+  // - LOCAL_QUESTIONS is the separate user-created or edited dataset with saved statuses applied
+  // - User-edited initial questions in LOCAL_QUESTIONS override the default dataset
   const syncedLocal = localQuestions.map((q) => ({
     ...q,
     status: savedStatuses[q.id] || q.status || 'Pending',
   }));
 
-  const initialIds = new Set(syncedInitial.map((q) => q.id));
+  const localIds = new Set(syncedLocal.map((q) => q.id));
+
+  const syncedInitial = INITIAL_QUESTIONS
+    .filter((q) => !hiddenInitialIds.includes(q.id) && !localIds.has(q.id))
+    .map((q) => ({
+      ...q,
+      status: savedStatuses[q.id] || q.status || 'Pending',
+    }));
+
   const questions = [
     ...syncedInitial,
-    ...syncedLocal.filter((q) => !initialIds.has(q.id)),
+    ...syncedLocal,
   ];
 
   // Theme toggle
@@ -105,15 +106,20 @@ export function App() {
   // Add / Edit save handler
   const handleSaveQuestion = (formData) => {
     if (formData.id) {
-      // Edit existing problem
-      const isLocal = localQuestions.some((q) => q.id === formData.id);
-      if (isLocal) {
-        const nextLocal = localQuestions.map((q) =>
+      // Edit existing problem (user-created or initial question override)
+      const isExistingLocal = localQuestions.some((q) => q.id === formData.id);
+      let nextLocal;
+      if (isExistingLocal) {
+        nextLocal = localQuestions.map((q) =>
           q.id === formData.id ? { ...q, ...formData } : q
         );
-        setLocalQuestions(nextLocal);
-        saveLocalQuestions(nextLocal);
+      } else {
+        // Initial question edited: promote to localQuestions override
+        nextLocal = [...localQuestions, { ...formData }];
       }
+      setLocalQuestions(nextLocal);
+      saveLocalQuestions(nextLocal);
+
       if (formData.status) {
         setSavedStatuses((prev) => {
           const next = { ...prev, [formData.id]: formData.status };
@@ -152,7 +158,11 @@ export function App() {
         const nextLocal = localQuestions.filter((q) => q.id !== deletingQuestion.id);
         setLocalQuestions(nextLocal);
         saveLocalQuestions(nextLocal);
-      } else {
+      }
+
+      // If it is also an initial question (or an edited initial question), persist hidden status
+      const isInitial = INITIAL_QUESTIONS.some((q) => q.id === deletingQuestion.id);
+      if (isInitial && !hiddenInitialIds.includes(deletingQuestion.id)) {
         const nextHidden = [...hiddenInitialIds, deletingQuestion.id];
         setHiddenInitialIds(nextHidden);
         saveHiddenInitialIds(nextHidden);
@@ -164,6 +174,16 @@ export function App() {
         saveSavedStatuses(next);
         return next;
       });
+
+      // If active filter was set to this week and no remaining questions exist in it, reset week filter
+      if (week !== 'All') {
+        const remainingInWeek = questions.filter(
+          (q) => q.id !== deletingQuestion.id && String(q.week) === String(week)
+        );
+        if (remainingInWeek.length === 0) {
+          setWeek('All');
+        }
+      }
 
       setDeletingQuestion(null);
     }
@@ -196,9 +216,22 @@ export function App() {
   };
 
   // Available unique weeks strictly from current questions
-  const availableWeeks = [...new Set(questions.map((q) => Number(q.week)).filter(Boolean))].sort(
-    (a, b) => a - b
-  );
+  const availableWeeks = [
+    ...new Set(questions.map((q) => Number(q.week)).filter((w) => Number.isInteger(w) && w > 0)),
+  ].sort((a, b) => a - b);
+
+  // Close modals on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        if (modalState.isOpen) setModalState({ isOpen: false, question: null });
+        if (deletingQuestion) setDeletingQuestion(null);
+        if (isResetConfirmOpen) setIsResetConfirmOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalState.isOpen, deletingQuestion, isResetConfirmOpen]);
 
   // Active week filter (fallback to 'All' if selected week no longer exists)
   const activeWeek = week !== 'All' && availableWeeks.includes(Number(week)) ? week : 'All';
@@ -259,6 +292,7 @@ export function App() {
               onClick={() => setIsResetConfirmOpen(true)}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               title="Reset to default questions"
+              aria-label="Reset to default questions"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span className="hidden md:inline">Reset</span>
@@ -267,10 +301,12 @@ export function App() {
             <button
               type="button"
               onClick={() => setModalState({ isOpen: true, question: null })}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-xl transition-all shadow-xs cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-xl transition-all shadow-xs cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 shrink-0"
+              aria-label="Add DSA problem"
             >
-              <Plus className="w-4 h-4" />
-              <span>Add Problem</span>
+              <Plus className="w-4 h-4 shrink-0" />
+              <span className="hidden sm:inline">Add Problem</span>
+              <span className="sm:hidden">Add</span>
             </button>
 
             <ThemeToggle theme={theme} onToggle={handleToggleTheme} />
@@ -397,23 +433,31 @@ export function App() {
           <div
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs"
             onClick={() => setDeletingQuestion(null)}
+            aria-hidden="true"
           />
-          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 z-10 animate-in zoom-in-95 duration-150">
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="delete-dialog-title"
+            aria-describedby="delete-dialog-desc"
+            className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 z-10 animate-in zoom-in-95 duration-150"
+          >
             <div className="flex items-start gap-3.5">
               <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                <h3 id="delete-dialog-title" className="text-lg font-bold text-slate-900 dark:text-white">
                   Delete Problem?
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p id="delete-dialog-desc" className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                   Are you sure you want to delete <span className="font-semibold text-slate-700 dark:text-slate-200">"{deletingQuestion.title}"</span>? This action cannot be undone.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setDeletingQuestion(null)}
+                aria-label="Close dialog"
                 className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-lg p-1"
               >
                 <X className="w-5 h-5" />
@@ -445,23 +489,31 @@ export function App() {
           <div
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs"
             onClick={() => setIsResetConfirmOpen(false)}
+            aria-hidden="true"
           />
-          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 z-10 animate-in zoom-in-95 duration-150">
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="reset-dialog-title"
+            aria-describedby="reset-dialog-desc"
+            className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 z-10 animate-in zoom-in-95 duration-150"
+          >
             <div className="flex items-start gap-3.5">
               <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                <h3 id="reset-dialog-title" className="text-lg font-bold text-slate-900 dark:text-white">
                   Reset to Demo Questions?
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p id="reset-dialog-desc" className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                   This will reload the initial DSA practice questions and overwrite any current changes or progress.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsResetConfirmOpen(false)}
+                aria-label="Close dialog"
                 className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-lg p-1"
               >
                 <X className="w-5 h-5" />

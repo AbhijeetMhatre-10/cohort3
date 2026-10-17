@@ -26,6 +26,7 @@ export function WeekSection({
         onClick={onToggle}
         className="w-full text-left p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-3xl cursor-pointer"
         aria-expanded={isExpanded}
+        aria-label={`Toggle Week ${week} problems, ${completedInWeek} of ${totalInWeek} completed`}
       >
         {/* Left: Play button / icon + Week title */}
         <div className="flex items-center gap-3.5">
@@ -51,7 +52,14 @@ export function WeekSection({
           <div className="text-sm font-bold text-purple-700 dark:text-purple-400 min-w-14 text-right">
             {completedInWeek} / {totalInWeek}
           </div>
-          <div className="w-28 sm:w-36 bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+          <div
+            role="progressbar"
+            aria-valuenow={pct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={`Week ${week} completion: ${pct}%`}
+            className="w-28 sm:w-36 bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden"
+          >
             <div
               className={`h-2 rounded-full transition-all duration-500 ${
                 isAllDone ? 'bg-emerald-500' : 'bg-purple-600'
