@@ -375,8 +375,8 @@ export function App() {
       {/* Footer */}
       <footer className="mt-auto border-t border-slate-200/80 dark:border-slate-800 py-6 text-xs text-slate-500 dark:text-slate-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <span>DSA Sheet Sheryians · Student Practice Tracker</span>
-          <span>Fast, minimal React & LocalStorage practice dashboard</span>
+          <span>DSA Sheet Sheryians · For Cohort 3</span>
+          <span>© By Sheryians, For Sheryians</span>
         </div>
       </footer>
 
